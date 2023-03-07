@@ -21,7 +21,7 @@ jobs:
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
-    depends-on: [Rustfmt]
+    needs: Rustfmt
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
@@ -34,7 +34,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    depends-on: [Clippy]
+    needs: Clippy
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
@@ -45,7 +45,7 @@ jobs:
   coverage:
     name: Code coverage
     runs-on: ubuntu-latest
-    depends-on: [Test]
+    needs: Test
     container:
       image: xd009642/tarpaulin
       options: --security-opt seccomp=unconfined
